@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ja" data-theme="neon">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#080b19"><title>NEON TOWER | 名張祭</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="stage" aria-label="3Dのタワーゲーム"></div>
+  <div class="vignette"></div>
+  <header class="navbar page-header">
+    <div class="navbar-start"><span class="badge badge-outline badge-sm edition">名張祭 / 2026</span></div>
+    <div class="navbar-end gap-2"><button class="btn btn-soft btn-sm" id="sound" aria-pressed="false">SOUND OFF</button><button class="btn btn-ghost btn-sm" id="fullscreen">全画面 ↗</button></div>
+  </header>
+  <main>
+    <section id="intro" class="intro">
+      <h1 class="tower-title" aria-label="NEON TOWER"><span class="title-neon">NEON</span><span class="title-tower">TOWER</span></h1>
+      <div class="tagline">その一瞬で、<br>もっと高く。</div>
+      <p>重ねて、つなげて、空をめざせ。<br>たったひとつのキーで挑む、60秒。</p>
+      <div class="mb-6 flex flex-wrap gap-2"><span class="badge badge-soft">1プレイ 60秒</span><span class="badge badge-soft">ワンキー操作</span></div>
+      <button id="start" class="btn btn-primary btn-lg btn-wide relative justify-center">プレイ <span class="absolute right-5" aria-hidden="true">↗</span></button>
+    </section>
+    <aside class="score-panel card card-border bg-base-100/90 shadow-xl">
+      <div class="stats stats-vertical bg-transparent">
+        <div class="stat"><div class="stat-title">最高記録</div><div class="stat-value best"><span id="best">00</span><small>段</small></div></div>
+        <div class="stat"><div class="stat-title">YOUR TOWER</div><div class="stat-value score text-accent"><span id="score">00</span><small>段</small></div><div class="stat-desc">次は、もう一段上へ。</div></div>
+      </div>
+      <div class="px-6 pb-6 pt-4"><div class="timer"><span>TIME LEFT</span><strong id="time">60<span>s</span></strong></div><progress id="time-bar" class="progress progress-accent w-full" value="60" max="60" aria-label="残り時間"></progress></div>
+    </aside>
+    <div id="feedback" aria-live="polite"></div>
+    <section id="result" class="result card card-border bg-base-100 shadow-2xl" hidden><div class="card-body items-center text-center gap-4"><div class="badge badge-outline badge-accent" id="result-label">NICE TRY</div><h2 class="card-title tracking-widest">YOUR TOWER</h2><div class="result-score text-accent"><span id="final-score">0</span><small>段</small></div><p id="result-message" class="text-base-content/65"></p><div class="card-actions w-full"><button id="retry" class="btn btn-primary btn-lg btn-block">もう一度チャレンジ <span>↗</span></button></div><div class="start-hint"><kbd class="kbd kbd-sm">SPACE</kbd> でリトライ</div></div></section>
+    <div id="load-error" class="result card card-border bg-base-100 shadow-xl" hidden><div class="card-body"><h2 class="card-title">3Dを起動できませんでした</h2><p>ブラウザのハードウェアアクセラレーションを有効にして、再読み込みしてください。</p></div></div>
+  </main>
+  <footer class="page-footer"><div class="instruction rounded-box border border-base-content/10 bg-base-100/80 px-4 py-3"><kbd class="kbd kbd-sm keyboard-hint">SPACE</kbd><span id="instruction"><span class="keyboard-hint">タイミングよく押して、ブロックを重ねよう</span><span class="touch-hint">画面をタップして、ブロックを重ねよう</span></span><button id="stack" class="btn btn-primary btn-sm" hidden>積む ↓</button></div><div class="footer-note">Bando Lab KTC</div></footer>
+  <script type="module" src="/src/main.js"></script>
+</body></html>

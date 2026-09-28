@@ -1,0 +1,29 @@
+{
+  "name": "game-2026",
+  "version": "1.0.0",
+  "description": "名張祭向け3Dネオンタワーゲーム",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@masabando/easy-three": "^1.15.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "daisyui": "^5.7.46",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.3.1"
+  },
+  "private": true,
+  "overrides": {
+    "three": "0.185.1"
+  }
+}
