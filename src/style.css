@@ -141,4 +141,12 @@ button { touch-action: manipulation; }
   .playing .timer strong { font-size: 18px; }
   .playing #feedback { top: 265px; left: 50%; }
   #stack { min-height: 48px; min-width: 160px; }
+  .one-key-badge, .page-footer #instruction, .page-footer .keyboard-hint { display: none; }
+  .start-actions { position: fixed; bottom: max(15px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .start-actions .play-badges { margin: 0; }
+  .start-actions #start { width: 240px; max-width: 86vw; }
+  .page-footer { display: none; padding-bottom: max(15px, env(safe-area-inset-bottom)); pointer-events: none; }
+  .playing .page-footer { display: flex; }
+  .page-footer .instruction { border: 0; background: transparent; padding: 0; border-radius: 0; }
+  #stack { pointer-events: auto; width: 240px; max-width: 86vw; }
 }
