@@ -123,10 +123,11 @@ function boot() {
     if (now > feedbackUntil) $('feedback').textContent = '';
     for (let i=debris.length-1;i>=0;i--) { const d=debris[i]; d.age+=dt; d.v-=16*dt; d.mesh.position.y+=d.v*dt; d.mesh.rotation.z+=dt*d.spin*1.8; d.mesh.rotation.x+=dt*.4; if(d.age>2){dispose(d.mesh);debris.splice(i,1);} }
     for(let i=rings.length-1;i>=0;i--){ const r=rings[i];r.age+=dt;r.mesh.scale.setScalar(1+r.age*5);r.mesh.material.opacity=Math.max(0,.8-r.age);if(r.age> .8){dispose(r.mesh);rings.splice(i,1);} }
-    const targetY = state === 'ready' ? 2.1 : state === 'over' ? score*height*.5 : Math.max(1.1, score*height-1.2);
-    cameraY += (targetY-cameraY)*Math.min(1,dt*3);
+    const portrait = innerWidth <= 760;
+    // Leave room above the active layer for the mobile score panel.
+    const targetY = state === 'ready' ? 2.1 : state === 'over' ? score*height*.5 : Math.max(1.1, score*height + (portrait ? 1.4 : -1.2));
+    cameraY += (targetY-cameraY)*Math.min(1,dt*(portrait && state === 'playing' ? 6 : 3));
     const distance = state === 'over' ? Math.max(17,score*height*1.6) : 18;
-    const portrait = innerWidth < 760;
     camera.position.set(distance*.65,cameraY+distance*.66,distance*.85);
     camera.lookAt(state === 'ready' ? (portrait ? -.3 : -1.5) : 0,cameraY,0);
     renderer.render(scene,camera);
