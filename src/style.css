@@ -122,6 +122,11 @@ body { margin: 0; overflow: hidden; }
 #stage { touch-action: manipulation; user-select: none; }
 button { touch-action: manipulation; }
 .touch-hint { display: none; }
+.track-credit { position: fixed; top: 72px; right: 42px; z-index: 2; font-size: 10px; letter-spacing: .5px; color: #a8b5cf; pointer-events: none; }
+.track-credit.muted { opacity: .55; }
+@media (max-width: 760px) {
+  .track-credit { top: 59px; right: 22px; font-size: 9px; }
+}
 @media (pointer: coarse) {
   .keyboard-hint, .start-hint { display: none; }
   .touch-hint { display: inline; }

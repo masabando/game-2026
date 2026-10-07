@@ -7,6 +7,33 @@ let best = 0;
 try { best = Math.max(0, Number(localStorage.getItem('nabari-neon-best')) || 0); } catch {}
 $('best').textContent = String(best).padStart(2, '0');
 let sound = false, audio;
+const bgm = $('bgm');
+bgm.volume = .3;
+const tracks = [
+  { title: 'Midnight Groove', file: 'midnight-groove.mp3' },
+  { title: 'Softly Offbeat', file: 'softly-offbeat.mp3' },
+  { title: 'Velvet Steps', file: 'velvet-steps.mp3' },
+  { title: 'Gently Syncopated', file: 'gently-syncopated.mp3' },
+];
+let currentTrack;
+function selectTrack() {
+  // Avoid repeating the same track on consecutive plays.
+  const choices = tracks.filter(track => track !== currentTrack);
+  currentTrack = choices[Math.floor(Math.random() * choices.length)];
+  bgm.pause();
+  bgm.src = `${import.meta.env.BASE_URL}audio/${currentTrack.file}`;
+  $('track-title').textContent = currentTrack.title;
+  $('track-credit').hidden = false;
+  syncMusic();
+}
+function syncMusic() {
+  $('track-credit').classList.toggle('muted', !sound);
+  if (sound && currentTrack && !document.hidden) {
+    // Playback can be interrupted by a retry or blocked by the browser.
+    bgm.play().catch(() => {});
+  } else bgm.pause();
+}
+document.addEventListener('visibilitychange', syncMusic);
 function tone(frequency, duration = .13) {
   if (!sound) return;
   try {
@@ -19,7 +46,13 @@ function tone(frequency, duration = .13) {
     osc.connect(gain).connect(audio.destination); osc.start(); osc.stop(audio.currentTime + duration);
   } catch {}
 }
-$('sound').onclick = () => { sound = !sound; $('sound').textContent = sound ? 'SOUND ON' : 'SOUND OFF'; $('sound').setAttribute('aria-pressed', String(sound)); tone(660); };
+$('sound').onclick = () => {
+  sound = !sound;
+  $('sound').textContent = sound ? 'SOUND ON' : 'SOUND OFF';
+  $('sound').setAttribute('aria-pressed', String(sound));
+  if (sound && !currentTrack) selectTrack(); else syncMusic();
+  tone(660);
+};
 $('fullscreen').onclick = async () => { try { if (document.fullscreenElement) await document.exitFullscreen(); else await document.documentElement.requestFullscreen(); } catch {} };
 
 try { boot(); } catch (error) { console.error(error); $('load-error').hidden = false; $('intro').hidden = true; }
@@ -62,6 +95,7 @@ function boot() {
     active.position[axis] -= 5; blocks.push(active);
   }
   function start() {
+    selectTrack();
     clear(); score = combo = 0; state = 'playing'; started = performance.now(); lastAction = started;
     base(); spawn(); document.body.classList.add('playing'); $('intro').hidden = true; $('result').hidden = true;
     $('score').textContent = '00'; $('stack').hidden = false; $('feedback').textContent = '';
